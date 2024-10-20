@@ -27,22 +27,26 @@ class PipelineSingleton {
         return this.instance;
     }
 }
+let modelLoaded = false;
+
 
 // Create generic classify function, which will be reused for the different types of events.
 const classify = async (text) => {
     // Get the pipeline instance. This will load and build the model when run for the first time.
     let model = await PipelineSingleton.getInstance((data) => {
-        // You can track the progress of the pipeline creation here.
-        // e.g., you can send `data` back to the UI to indicate a progress bar
-    // Envoyer un message à content pour afficher un loader
-    console.log("data", data)
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        if (tabs && tabs.length > 0 && tabs[0].id !== undefined) {
-            chrome.tabs.sendMessage(tabs[0].id, {type: "SHOW_LOADER", data: data});
-        } else {
-            console.error("No active tab found or tab ID undefined");
+        console.log("data", data);
+        if (data.status === "ready") {
+            modelLoaded = true;
         }
-    });
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            if (tabs && tabs.length > 0 && tabs[0].id !== undefined) {
+                sendMessageWithRetry(tabs[0].id, {type: "SHOW_LOADER", data: data})
+                    .then(response => console.log('Message sent successfully'))
+                    .catch(error => console.error('Failed to send message:', error));
+            } else {
+                console.error("Aucun onglet actif trouvé ou ID d'onglet non défini");
+            }
+        });
     });
 
     const storage = new Storage();
@@ -65,6 +69,25 @@ const classify = async (text) => {
     console.log('classificationResults', classificationResults)
     return classificationResults
 };
+
+function sendMessageWithRetry(tabId, message, maxRetries = 3) {
+  return new Promise((resolve, reject) => {
+    function attemptSend(attemptNumber) {
+      chrome.tabs.sendMessage(tabId, message, response => {
+        if (chrome.runtime.lastError) {
+          if (attemptNumber < maxRetries) {
+            setTimeout(() => attemptSend(attemptNumber + 1), 1000);
+          } else {
+            reject(new Error('Max retries reached'));
+          }
+        } else {
+          resolve(response);
+        }
+      });
+    }
+    attemptSend(1);
+  });
+}
 
 ////////////////////// 1. Context Menus //////////////////////
 //
@@ -106,12 +129,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     classify(message.content)
       .then((classification) => {
         const isNegative = !classification.some(item => item.score > 0.5);
-        sendResponse({ classification: classification, isNegative: isNegative })
+        sendResponse({ classification: classification, isNegative: isNegative });
       })
       .catch((error) => {
-        console.error('Error during classification:', error)
-        sendResponse({ error: error.message })
-      })
+        console.error('Erreur pendant la classification:', error);
+        sendResponse({ error: error.message });
+      });
     return true;
 });
 //////////////////////////////////////////////////////////////

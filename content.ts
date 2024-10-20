@@ -64,6 +64,9 @@ async function classifyPost(postElement: Element, postContent: string) {
   }
 
   const postDescription = getPostDescription(postElement)
+  if (postDescription === "") {
+    return
+  }
   const firstTwoWords = getFirstTwoWords(postDescription)
   const cleanedContent = await prepareContent(postDescription)
 
@@ -80,7 +83,7 @@ async function classifyPost(postElement: Element, postContent: string) {
 }
 
 function getPostDescription(postElement: Element): string {
-  return (postElement.querySelector('.feed-shared-update-v2__description-wrapper') as HTMLElement).innerText
+  return (postElement.querySelector('.feed-shared-update-v2__description-wrapper') as HTMLElement)?.innerText || ""
 }
 
 function getFirstTwoWords(text: string): string {
@@ -333,6 +336,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "SHOW_LOADER") {
         if (!modelLoaded) {
             updateLoader(message.data.progress);
+        }
+        if (message.modelLoaded) {
+            modelLoaded = true;
+            removeLoader();
         }
     }
 });
