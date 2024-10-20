@@ -6,7 +6,7 @@
   "author": "Plasmo Corp. <foss@plasmo.com>",
   "scripts": {
     "dev": "plasmo dev",
-    "build": "plasmo build",
+    "build": "plasmo build --build-path=.",
     "package": "plasmo package"
   },
   "dependencies": {
@@ -36,7 +36,6 @@
     ],
     "host_permissions": [
       "https://www.linkedin.com/*",
-      "<all_urls>",
       "https://stopwordapi.com/*"
     ],
     "content_security_policy": {

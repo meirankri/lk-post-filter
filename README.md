@@ -1,33 +1,56 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# LinkedIn AI Post Classifier
 
-## Getting Started
+## Overview
 
-First, run the development server:
+LinkedIn AI Post Classifier is a Chrome extension that enhances your LinkedIn browsing experience by automatically categorizing posts in your feed using AI technology. This tool helps you quickly identify content that matters most to you based on customizable categories.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## Features
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+- Automatic classification of LinkedIn posts
+- Customizable classification labels
+- Visual indicators for classified posts
+- Highlighting of potentially negative content
+- Privacy-focused with local processing
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## Installation
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+### Option 1: Chrome Web Store (Coming Soon)
 
-## Making production build
+1. [Link to Chrome Web Store will be added when available]
+2. Click "Add to Chrome" to install the extension
+3. Once installed, you'll see the extension icon in your browser toolbar
 
-Run the following:
+### Option 2: Manual Installation
 
-```bash
-pnpm build
-# or
-npm run build
-```
+1. [Download the extension files](lien_vers_votre_fichier_zip)
+2. Unzip the downloaded file to a folder on your computer
+3. Open Google Chrome and go to `chrome://extensions/`
+4. Enable "Developer mode" in the top right corner
+5. Click "Load unpacked" and select the folder where you unzipped the extension files
+6. The extension should now be installed and visible in your browser toolbar
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+## How to Use
 
-## Submit to the webstores
+1. **Viewing Classifications**:
+   - Browse your LinkedIn feed as usual
+   - Look for the "LK-AI" button on each post
+   - Click this button to view the classification details
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+2. **Customizing Labels**:
+   - Click the extension icon in your browser toolbar
+   - In the popup, you'll see the current classification labels
+   - To add a new label, type it in the input field and click "Add"
+   - To remove a label, click the trash icon next to it
+
+3. **Interpreting Results**:
+   - Posts classified as potentially negative will have a subtle red background
+   - Click the "LK-AI" button on any post to see its classification scores
+
+## Privacy
+
+This extension processes all data locally in your browser. No post content or personal information is sent to external servers, ensuring your privacy and data security.
+
+## Feedback and Support
+
+If you encounter any issues or have suggestions for improvement, please [open an issue](lien_vers_votre_page_github_issues) on our GitHub repository.
+
