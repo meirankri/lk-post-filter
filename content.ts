@@ -54,7 +54,7 @@ async function removeStopwords(text) {
 
 async function classifyPost(postElement: Element, postContent: string) {
   if (postElement.hasAttribute('data-classified')) {
-    console.log("Post déjà classifié, ignoré.")
+    console.log("Post already classified, ignored.")
     return
   }
 
@@ -72,7 +72,7 @@ async function classifyPost(postElement: Element, postContent: string) {
 
   try {
     const response = await sendMessageWithRetry({ type: "CLASSIFY_POST", content: cleanedContent })
-    console.log("Post classifié:", response.classification)
+    console.log("Post classified:", response.classification)
 
     markPostAsClassified(postElement)
     addClassificationDetails(postElement, firstTwoWords, response)
@@ -134,7 +134,7 @@ function createDetailsContainer(firstTwoWords: string, response: any): HTMLDivEl
 function createStatusElement(firstTwoWords: string): HTMLDivElement {
   const statusElement = document.createElement('div')
   statusElement.className = 'post-status'
-  statusElement.textContent = `Post traité - "${firstTwoWords}..."`
+  statusElement.textContent = `Post processed - "${firstTwoWords}..."`
   return statusElement
 }
 
@@ -158,21 +158,21 @@ function applyPostStyle(postElement: Element, isNegative: boolean): void {
   const targetElement = postElement.querySelector('.fie-impression-container')
   if (targetElement) {
     if (isNegative) {
-      console.log("Post classifié comme négatif, ajout de la classe CSS.")
+      console.log("Post classified as negative, adding CSS class.")
       targetElement.classList.add("negative-post")
       addRemoveNegativeButton(postElement.querySelector('.classification-details'))
     } else {
       targetElement.classList.add("positive-post")
     }
   } else {
-    console.warn("Élément cible non trouvé dans le post")
+    console.warn("Target element not found in post")
   }
 }
 
 function handleClassificationError(error: Error, postElement: Element, postContent: string): void {
-  console.error("Échec de la classification du post:", error)
+  console.error("Failed to classify post:", error)
   if (error.message === "Extension context invalidated") {
-    console.log("L'extension a été rechargée. Nouvelle tentative après un court délai.")
+    console.log("Extension has been reloaded. Retrying after a short delay.")
     setTimeout(() => classifyPost(postElement, postContent), 2000)
   }
 }
