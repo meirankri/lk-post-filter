@@ -6,7 +6,7 @@
   "author": "Plasmo Corp. <foss@plasmo.com>",
   "scripts": {
     "dev": "plasmo dev",
-    "build": "plasmo build --build-path=.",
+    "build": "plasmo build && (cd ./build/chrome-mv3-prod && zip -r ../../chrome-mv3-prod.zip .)",
     "package": "plasmo package"
   },
   "dependencies": {
