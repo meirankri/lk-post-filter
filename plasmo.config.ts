@@ -6,16 +6,17 @@ export default {
     permissions: [
       "activeTab",
       "scripting",
-      "storage"
+      "storage",
+      "tabs"
     ],
-    host_permissions: ["https://www.linkedin.com/*"],
+    host_permissions: ["https://www.linkedin.com/feed"],
     background: {
       service_worker: "background.ts",
       type: "module"
     },
     content_scripts: [
       {
-        matches: ["https://www.linkedin.com/*"],
+        matches: ["https://www.linkedin.com/feed*"],
         js: ["content.ts"]
       }
     ],
@@ -26,7 +27,7 @@ export default {
     web_accessible_resources: [
       {
         resources: ["*.wasm"],
-        matches: ["<all_urls>"]
+        matches: ["https://www.linkedin.com/feed"]
       }
     ]
   },

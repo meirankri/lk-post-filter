@@ -36,7 +36,8 @@
     ],
     "host_permissions": [
       "https://www.linkedin.com/*",
-      "<all_urls>"
+      "<all_urls>",
+      "https://stopwordapi.com/*"
     ],
     "content_security_policy": {
       "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
