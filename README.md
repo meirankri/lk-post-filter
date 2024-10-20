@@ -22,12 +22,11 @@ LinkedIn AI Post Classifier is a Chrome extension that enhances your LinkedIn br
 
 ### Option 2: Manual Installation
 
-1. [Download the extension files](lien_vers_votre_fichier_zip)
-2. Unzip the downloaded file to a folder on your computer
-3. Open Google Chrome and go to `chrome://extensions/`
-4. Enable "Developer mode" in the top right corner
-5. Click "Load unpacked" and select the folder where you unzipped the extension files
-6. The extension should now be installed and visible in your browser toolbar
+1. [Download the extension files](./chrome-mv3-prod)
+2. Open Google Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode" in the top right corner
+4. Click "Load unpacked" and select the folder where you unzipped the extension files
+5. The extension should now be installed and visible in your browser toolbar
 
 ## How to Use
 
@@ -50,7 +49,4 @@ LinkedIn AI Post Classifier is a Chrome extension that enhances your LinkedIn br
 
 This extension processes all data locally in your browser. No post content or personal information is sent to external servers, ensuring your privacy and data security.
 
-## Feedback and Support
-
-If you encounter any issues or have suggestions for improvement, please [open an issue](lien_vers_votre_page_github_issues) on our GitHub repository.
 
